@@ -1,0 +1,13 @@
+name "Energy"
+
+every 1 ticks do
+    input forge_energy:: from generator top side
+
+    output forge_energy:: to power_storage top side
+end
+
+every 20 ticks do
+    input fluid:: from sink
+    output fluid:: to generator top side
+end
+
