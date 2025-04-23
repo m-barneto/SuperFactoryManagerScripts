@@ -1,0 +1,19 @@
+name "Hydroponics" 
+
+every 1 ticks do
+    input forge_energy:: from power_source
+    output forge_energy:: to hydroponic_bed bottom side
+end
+
+
+every 20 ticks do
+    input fluid::water from interface_water_ether
+    output fluid::water to hydroponic_bed
+    forget
+    input fluid::ether* from interface_water_ether
+    output fluid::ether* to hydroponic_bed
+end
+every 20 ticks do
+    input from hydroponic_bed bottom side
+    output to storage_output
+end
