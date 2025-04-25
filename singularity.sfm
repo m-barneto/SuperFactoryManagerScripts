@@ -1,7 +1,0 @@
-name "Singularity"
-
-every 1 ticks do 
-    input fluid:: from sink
-
-    output fluid:: to condenser
-end

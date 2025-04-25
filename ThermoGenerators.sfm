@@ -1,4 +1,4 @@
-name "Energy"
+name "ThermoGenerators"
 
 every 1 ticks do
     input forge_energy:: from generator top side

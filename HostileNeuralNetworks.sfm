@@ -1,0 +1,25 @@
+name "HostileNeuralNetworks"
+
+every 20 ticks do
+    -- Interface should have crafting upgrade and supply prediction matrix
+    input 
+        hostilenetworks:prediction_matrix
+    from interface
+
+    output to each simulation_chamber
+
+    forget
+
+    -- Pull overworld, nether, and end predictions from sim chambers to the interface
+    input
+        "hostilenetworks:(overworld|nether|end)_prediction",
+        hostilenetworks:prediction
+    from simulation_chamber
+
+    output to interface
+end
+
+every 1 ticks do
+    input forge_energy:: from power_source
+    output forge_energy:: to each simulation_chamber
+end

@@ -1,0 +1,23 @@
+name "Latex"
+
+every 1 ticks do
+    input forge_energy:: from power_source
+    output forge_energy:: to each power_destination
+end
+
+every 20 ticks do
+    input fluid::latex from fluid_extractor
+    output fluid::latex to latex_tank
+
+    input fluid::latex from latex_tank
+    output fluid::latex to latex_processor
+
+    input fluid::water from sink
+    output fluid::water to latex_processor
+
+    forget
+    input from latex_processor
+    output to furnace
+
+
+end

@@ -1,0 +1,12 @@
+name "Infusion"
+
+every 20 ticks do 
+    input *essence* from source
+    output 1 *essence* to each essence_altar
+    
+    input "^(?!.*\b(seed|essence)\b).+$" from source
+    output 1 "^(?!.*\b(seed|essence)\b).+$" to each input_altar
+
+    input *seed* from source
+    output 1 *seed* to seed_altar
+end
