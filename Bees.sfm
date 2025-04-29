@@ -1,0 +1,23 @@
+name "Bees"
+
+every tick do
+    input forge_energy:: from power_source
+    output forge_energy:: to each centrifuge
+end
+
+every 20 ticks do
+    input from hive
+
+    output *pollen* to trashcan
+    output *comb* to each centrifuge
+
+    forget
+
+    input from centrifuge
+    output to output_destination
+
+    forget
+
+    input fluid:: from centrifuge
+    output fluid:: to output_destination
+end

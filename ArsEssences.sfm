@@ -1,0 +1,9 @@
+name "ArsEssences"
+
+every 20 ticks do
+    input *gem* from interface
+    output *gem* to chamber
+
+    input *essence* from chamber
+    output *essence* to drawer_controller
+end
