@@ -1,0 +1,77 @@
+name "Ethene"
+
+-- power_source
+-- bio_input
+-- crusher
+-- electrolyzer
+-- water_source
+-- prc
+-- ethene_tank
+-- oxygen_tank
+-- substrate_output
+-- gas_gen
+
+-- bio input to crusher
+-- take biofuel from crusher and put into PRC
+
+-- Take water from water source to electrolyzer
+-- Take hydrogen from electrolyzer to PRC
+
+-- Take ethene from PRC to ethene tank
+
+
+every 1 ticks do
+    input forge_energy:: from flux bottom side
+    output forge_energy:: to each crusher south side
+    output forge_energy:: to each electrolyzer south side
+    output forge_energy:: to each water_source south side
+    output forge_energy:: to each prc south side
+
+    forget
+
+    input forge_energy:: from gas_gen north side
+    output forge_energy:: to flux top side
+end
+
+every redstone pulse do
+    input fluid::water from water_source top side
+    output fluid::water to each electrolyzer top side
+    output fluid::water to prc top side
+
+    forget
+    
+    input gas::hydrogen from electrolyzer bottom side
+    output gas::hydrogen to each prc top side
+    
+    forget
+
+    input gas::oxygen from electrolyzer top side
+    output gas::oxygen to each oxygen_tank top side
+end
+
+every 20 ticks do
+    input from bio_input
+    output to each crusher top side
+
+    forget
+
+    input from crusher bottom side
+    output to each prc top side
+
+    forget
+
+    input gas::ethene from prc bottom side
+    output gas::ethene to ethene_tank top side
+
+    forget
+
+    input item::substrate from prc bottom side
+    output item::substrate to substrate_output top side
+
+    forget
+
+    input gas::ethene from ethene_tank west side
+    output gas::ethene to gas_gen top side
+
+    forget
+end

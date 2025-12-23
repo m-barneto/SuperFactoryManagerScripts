@@ -1,0 +1,83 @@
+name "Fissile Fuel"
+
+every 1 ticks do
+    input forge_energy:: from energy_source bottom side
+    
+    output forge_energy:: to each centrifuge bottom side
+    output forge_energy:: to each uranium_hexfluoride_chemical_infuser bottom side
+    output forge_energy:: to each uranium_chemical_oxidizer bottom side
+    output forge_energy:: to each enrichment_chamber bottom side
+    output forge_energy:: to each dissolution_chamber bottom side
+    output forge_energy:: to each sulfur_trioxide_chemical_infuser bottom side
+    output forge_energy:: to each sulfuric_acid_chemical_infuser bottom side
+    output forge_energy:: to each rotary_condensentrator bottom side
+    output forge_energy:: to each sulfur_oxidizer bottom side
+    output forge_energy:: to each prc bottom side
+end
+
+every 20 ticks do
+    -- SULFUR PRODUCTION
+    input minecraft:charcoal from coal_source top side
+    output to each prc top side
+    forget
+    input fluid::water from water_source top side
+    output fluid::water to each prc west side
+    forget
+    input gas::oxygen from oxygen_source top side
+    output gas::oxygen to each prc east side
+    forget
+    input gas::hydrogen from prc bottom side
+    output gas::hydrogen to fluid_trashcan top side
+    forget
+    -- SULFUR TO SULFUR TRIOXIDE
+    input modern_industrialization:sulfur_dust from prc bottom side
+    output to each sulfur_oxidizer top side
+    forget
+    input gas::sulfur_dioxide from sulfur_oxidizer bottom side
+    output gas::sulfur_dioxide to each sulfur_trioxide_chemical_infuser west side
+    forget
+    input gas::oxygen from oxygen_source top side
+    output gas::oxygen to each sulfur_trioxide_chemical_infuser east side
+    forget
+    -- WATER TO WATER VAPOR
+    input fluid::water from water_source top side
+    output fluid::water to each rotary_condensentrator top side
+    forget
+    -- SULFUR TRIOXIDE TO SULFURIC ACID
+    input gas::sulfur_trioxide from sulfur_trioxide_chemical_infuser bottom side
+    output gas::sulfur_trioxide to each sulfuric_acid_chemical_infuser west side
+    forget
+    input gas:mekanism:* from rotary_condensentrator bottom side
+    output gas:mekanism:* to each sulfuric_acid_chemical_infuser east side
+    forget
+    -- SULFURIC ACID TO HYDROFLUORIC ACID
+    input gas:mekanism:sulfuric_acid from sulfuric_acid_chemical_infuser bottom side
+    output gas:mekanism:sulfuric_acid to each dissolution_chamber west side
+    forget
+    input "mekanism:fluorite_gem" from flourine_source top side
+    output to each dissolution_chamber west side
+    -- URANIUM TO YELLOW CAKE
+    input "modern_industrialization:uranium_ingot" from uranium_source top side
+    output to each enrichment_chamber top side
+    forget
+    -- YELLOW CAKE TO URANIUM OXIDE
+    input "mekanism:yellow_cake_uranium" from enrichment_chamber bottom side
+    output "mekanism:yellow_cake_uranium" to each uranium_chemical_oxidizer top side
+    forget
+    input "mekanism:yellow_cake_uranium" from uranium_source top side
+    output "mekanism:yellow_cake_uranium" to each uranium_chemical_oxidizer top side
+    forget
+    -- URANIUM OXIDE AND HYDROFLUORIC ACID TO URANIUM HEXAFLUORIDE
+    input gas:mekanism:uranium_oxide from uranium_chemical_oxidizer bottom side
+    output gas:mekanism:uranium_oxide to each uranium_hexfluoride_chemical_infuser west side
+    forget
+    input gas:mekanism:hydrofluoric_acid from dissolution_chamber bottom side
+    output gas:mekanism:hydrofluoric_acid to each uranium_hexfluoride_chemical_infuser east side
+    forget
+    -- URANIUM HEXAFLUORIDE TO FISSILE FUEL
+    input gas:mekanism:uranium_hexafluoride from uranium_hexfluoride_chemical_infuser bottom side
+    output gas:mekanism:uranium_hexafluoride to each centrifuge west side
+    forget
+end
+
+
